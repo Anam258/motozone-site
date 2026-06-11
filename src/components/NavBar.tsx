@@ -1,76 +1,105 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 
-const links = ['Home', 'Bikes', 'Services', 'About', 'Contact'];
+const WA_URL =
+  'https://api.whatsapp.com/send?phone=923029222607&text=Salam%20MotoZone%2C%20I%20want%20to%20inquire%20about%20a%20Suzuki%20Motorcycle%20or%20Service.';
+
+const links = [
+  { label: 'Bikes',    href: '#bikes'    },
+  { label: 'Services', href: '#services' },
+  { label: 'Why Us',   href: '#why-us'   },
+  { label: 'Branches', href: '#branches' },
+];
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-blue-500 rounded-sm flex items-center justify-center">
-            <Zap className="w-5 h-5 text-white" fill="currentColor" />
-          </div>
-          <span className="text-white font-black text-xl tracking-tight">
-            MOTO<span className="text-blue-500">ZONE</span>
+    <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
+      {/* ── Topbar ── */}
+      <div className="bg-red-600 text-white text-sm py-2 px-4">
+        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+          <span className="flex items-center gap-1.5 font-medium">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Open Daily: 10:00 AM – 9:30 PM
           </span>
+          <a
+            href={`tel:+923029222607`}
+            className="flex items-center gap-1.5 font-semibold hover:underline"
+          >
+            <Phone className="w-4 h-4" />
+            +92 302 922 2607
+          </a>
         </div>
+      </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="text-zinc-400 hover:text-white text-sm font-medium tracking-wide transition-colors"
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA */}
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-5 py-2.5 rounded transition-colors"
-        >
-          Book a Test Ride
+      {/* ── Main nav bar ── */}
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <a href="#" className="flex flex-col leading-none">
+          <span className="text-2xl font-extrabold tracking-tight text-slate-900">
+            Moto<span className="text-red-600">Zone</span>
+          </span>
+          <span className="text-xs text-slate-500 mt-0.5">Pak Suzuki Authorized 3S Dealer</span>
         </a>
 
-        {/* Mobile toggle */}
+        {/* Desktop links */}
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="hover:text-red-600 transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-red-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-red-700 transition-colors"
+          >
+            Inquire Now
+          </a>
+        </nav>
+
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden text-zinc-400 hover:text-white"
+          className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={open}
         >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile drawer */}
       {open && (
-        <div className="md:hidden bg-zinc-900 border-t border-zinc-800 px-4 py-4 flex flex-col gap-4">
-          {links.map((link) => (
+        <div className="md:hidden bg-white border-t border-slate-100 px-4 py-5 flex flex-col gap-1 shadow-lg">
+          {links.map((l) => (
             <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
+              key={l.label}
+              href={l.href}
               onClick={() => setOpen(false)}
-              className="text-zinc-300 hover:text-white text-sm font-medium py-1 transition-colors"
+              className="text-slate-700 hover:text-red-600 text-base font-medium py-2.5 px-3 rounded-lg hover:bg-red-50 transition-colors"
             >
-              {link}
+              {l.label}
             </a>
           ))}
           <a
-            href="#contact"
+            href={WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
-            className="bg-blue-600 text-white text-sm font-semibold px-4 py-2.5 rounded text-center mt-2 transition-colors hover:bg-blue-500"
+            className="mt-3 bg-red-600 hover:bg-red-700 text-white text-base font-bold py-3 px-4 rounded-xl text-center transition-colors"
           >
-            Book a Test Ride
+            Inquire Now via WhatsApp
           </a>
         </div>
       )}

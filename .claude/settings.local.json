@@ -1,8 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(npm run *)",
+      "Bash(gh pr create --title 'refactor: unified Crimson Red branding, real Pak Suzuki lineup, deep links & accessible NavBar' --body ' *)"
     ]
   }
 }
